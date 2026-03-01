@@ -8,14 +8,35 @@ export interface Student {
   streak: number
 }
 
+import type { SongStatus } from '../types/database'
+
 export interface Song {
   id: string
   title: string
   composer: string
-  difficulty: 'Easy' | 'Medium' | 'Hard'
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced'
+  voiceParts: ('S' | 'A' | 'T' | 'B')[]
+  fileUrl?: string
+  fileType?: 'pdf' | 'musicxml'
+  createdBy?: string
+  assignedClasses?: string[]
   assignedDate: string
   avgCompletion: number
+  status: SongStatus
+  errorMessage?: string
 }
+
+export interface MockClass {
+  id: string
+  name: string
+}
+
+export const mockClasses: MockClass[] = [
+  { id: '1', name: 'Concert Choir' },
+  { id: '2', name: 'Chamber Ensemble' },
+  { id: '3', name: 'Beginning Chorus' },
+  { id: '4', name: 'Advanced Treble' },
+]
 
 export interface Goal {
   id: string
@@ -48,11 +69,12 @@ export const students: Student[] = [
 ]
 
 export const songs: Song[] = [
-  { id: '1', title: 'Ave Verum Corpus', composer: 'Mozart', difficulty: 'Medium', assignedDate: '2026-02-10', avgCompletion: 72 },
-  { id: '2', title: 'Sicut Cervus', composer: 'Palestrina', difficulty: 'Hard', assignedDate: '2026-02-03', avgCompletion: 45 },
-  { id: '3', title: 'Simple Gifts', composer: 'Brackett / Copland', difficulty: 'Easy', assignedDate: '2026-02-17', avgCompletion: 88 },
-  { id: '4', title: 'The Water Is Wide', composer: 'Trad. / arr. Rutter', difficulty: 'Medium', assignedDate: '2026-01-27', avgCompletion: 91 },
-  { id: '5', title: 'O Magnum Mysterium', composer: 'Lauridsen', difficulty: 'Hard', assignedDate: '2026-02-20', avgCompletion: 28 },
+  { id: '1', title: 'Revolting Children', composer: 'Tim Minchin', difficulty: 'Intermediate', voiceParts: ['S', 'A'], fileType: 'pdf', assignedClasses: ['1', '3'], assignedDate: '2026-02-15', avgCompletion: 64, status: 'ready' },
+  { id: '2', title: 'Ode to Joy', composer: 'Beethoven / arr. various', difficulty: 'Beginner', voiceParts: ['S', 'A', 'T', 'B'], fileType: 'musicxml', assignedClasses: ['1'], assignedDate: '2026-02-10', avgCompletion: 82, status: 'ready' },
+  { id: '3', title: 'Can You Feel the Love Tonight', composer: 'Elton John / arr. Huff', difficulty: 'Intermediate', voiceParts: ['S', 'A', 'B'], fileType: 'pdf', assignedClasses: ['2'], assignedDate: '2026-02-18', avgCompletion: 47, status: 'pdf_only' },
+  { id: '4', title: 'Wanting Memories', composer: 'Ysaye Barnwell', difficulty: 'Intermediate', voiceParts: ['S', 'A', 'T', 'B'], fileType: 'pdf', assignedClasses: ['4'], assignedDate: '2026-02-22', avgCompletion: 0, status: 'processing' },
+  { id: '5', title: 'Homeward Bound', composer: 'Marta Keen', difficulty: 'Beginner', voiceParts: ['S', 'A', 'B'], fileType: 'musicxml', assignedClasses: ['3', '1'], assignedDate: '2026-02-08', avgCompletion: 73, status: 'ready' },
+  { id: '6', title: 'Sicut Cervus', composer: 'Palestrina', difficulty: 'Advanced', voiceParts: ['S', 'A', 'T', 'B'], fileType: 'pdf', assignedClasses: ['2'], assignedDate: '2026-02-25', avgCompletion: 0, status: 'error', errorMessage: 'Upload interrupted — the file may be corrupted. Please re-upload.' },
 ]
 
 export const goals: Goal[] = [
